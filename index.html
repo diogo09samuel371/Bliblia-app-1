@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1730"><title>Palavra de Deus</title>
+<style>
+:root{--bg:#0b1730;--panel:#142443;--gold:#e4c36a;--text:#f5f2e9;--muted:#b8c3d8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,sans-serif}
+header{padding:24px 18px 18px;background:linear-gradient(145deg,#14294d,#0b1730);border-bottom:1px solid #344666}
+.brand{color:var(--gold);font-size:12px;letter-spacing:3px;font-weight:800}.hero{font-size:27px;font-weight:800;margin:8px 0}.sub{color:var(--muted);font-size:14px}
+main{padding:16px;max-width:700px;margin:auto}.card{background:var(--panel);border:1px solid #2b3c5c;border-radius:17px;padding:16px;margin:12px 0}
+h2{font-size:18px;margin:0 0 10px;color:var(--gold)}p{line-height:1.65}.verse{font-size:19px;line-height:1.7}
+button,select,input,textarea{font:inherit;border-radius:10px;border:1px solid #455779;padding:11px;background:#0c1a34;color:var(--text);max-width:100%}
+button{background:var(--gold);color:#101a2b;font-weight:750;border:0;cursor:pointer;margin:4px 3px 4px 0}
+.secondary{background:#233756;color:var(--text);border:1px solid #455779}.tabs{display:flex;gap:6px;overflow:auto;padding:12px 16px;background:#0b1730;position:sticky;top:0;z-index:2}
+.tabs button{white-space:nowrap}.hidden{display:none}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+small,.muted{color:var(--muted)}.item{padding:10px 0;border-bottom:1px solid #344666}.item:last-child{border:0}
+textarea{width:100%;min-height:100px}.full{width:100%}.goldline{height:2px;background:var(--gold);width:55px;margin:12px 0}
+body.light{--bg:#f5f3ec;--panel:#fff;--text:#19243a;--muted:#58647a}body.light .tabs{background:var(--bg)}body.light button.secondary{color:var(--text);background:#e7eaf0}
+</style></head><body>
+<header><div class="brand">✦ BÍBLIA SAGRADA ✦</div><div class="hero">Palavra de Deus 📖</div><div class="sub">Um momento com a Palavra, todos os dias.</div></header>
+<nav class="tabs">
+<button onclick="show('inicio')">Início</button><button class="secondary" onclick="show('biblia')">Bíblia</button><button class="secondary" onclick="show('busca')">Pesquisar</button><button class="secondary" onclick="show('favoritos')">Favoritos</button><button class="secondary" onclick="show('oracao')">Orações</button><button class="secondary" onclick="show('notas')">Minhas notas</button><button class="secondary" onclick="show('plano')">Plano</button>
+</nav>
+<main>
+<section id="inicio">
+<div class="card"><h2>✨ Versículo do dia</h2><div class="goldline"></div><p class="verse">“O Senhor é o meu pastor; nada me faltará.”</p><p class="muted">Salmos 23:1 — tradução Almeida clássica (texto tradicional; confirme a edição escolhida antes de distribuir).</p><button onclick="saveFav('Salmos 23:1','O Senhor é o meu pastor; nada me faltará.')">♡ Salvar favorito</button><button class="secondary" onclick="shareText('O Senhor é o meu pastor; nada me faltará. — Salmos 23:1')">Compartilhar</button></div>
+<div class="card"><h2>🙏 Um momento de oração</h2><p>Separe alguns minutos para agradecer, pedir sabedoria e entregar seu dia a Deus.</p><button onclick="show('oracao')">Abrir orações</button></div>
+<div class="card"><h2>📅 Seu progresso</h2><p id="progress">Capítulos marcados como lidos: 0</p><button onclick="markRead()">Marcar capítulo de hoje como lido</button></div>
+<div class="card"><h2>🌙 Seu espaço</h2><p>Personalize a leitura para ficar confortável.</p><button onclick="toggleTheme()">Alternar modo claro/escuro</button><button class="secondary" onclick="fontSize(1)">A+ Texto maior</button><button class="secondary" onclick="fontSize(-1)">A− Texto menor</button></div>
+</section>
+<section id="biblia" class="hidden"><div class="card"><h2>📖 Ler a Bíblia</h2><p class="muted">Este protótipo contém passagens de exemplo. A Bíblia completa será adicionada usando uma tradução em português cuja licença permita redistribuição.</p><div class="row"><select id="book"><option>Gênesis</option><option>Salmos</option><option>Provérbios</option><option>Mateus</option><option>João</option><option>Romanos</option><option>Apocalipse</option></select><select id="chapter"><option>1</option><option>2</option><option>3</option><option>23</option></select><button onclick="readChapter()">Abrir</button></div><div id="chapterText" class="item"><p>Escolha um livro e capítulo. Os textos completos serão incorporados quando a tradução licenciada for definida.</p></div></div></section>
+<section id="busca" class="hidden"><div class="card"><h2>🔎 Pesquisar passagens</h2><input id="query" class="full" placeholder="Digite uma palavra ou referência"><button onclick="searchBible()">Pesquisar</button><div id="results"></div><small>A pesquisa funciona sobre as passagens incluídas no app.</small></div></section>
+<section id="favoritos" class="hidden"><div class="card"><h2>♡ Meus favoritos</h2><div id="favList">Nenhum favorito salvo ainda.</div></div></section>
+<section id="oracao" class="hidden"><div class="card"><h2>🙏 Orações</h2><div class="item"><b>Ao acordar</b><p>Senhor, obrigado por este novo dia. Guia meus passos, dá-me sabedoria para escolher o bem e um coração disposto a ajudar o próximo. Amém.</p></div><div class="item"><b>Antes de dormir</b><p>Meu Deus, obrigado por me acompanhar hoje. Ajuda-me a aprender com o que vivi, concede descanso e renova minhas forças para amanhã. Amém.</p></div><div class="item"><b>Por sabedoria</b><p>Senhor, ajuda-me a agir com paciência, verdade e amor. Que minhas palavras tragam paz e minhas escolhas sejam guiadas pelo bem. Amém.</p></div><div class="item"><b>Gratidão</b><p>Deus, obrigado pelas pessoas que caminham comigo e pelas oportunidades de aprender. Ensina-me a reconhecer as bênçãos de cada dia. Amém.</p></div></div></section>
+<section id="notas" class="hidden"><div class="card"><h2>📝 Minhas notas e pedidos de oração</h2><textarea id="note" placeholder="Escreva sua reflexão, estudo ou pedido de oração..."></textarea><button onclick="saveNote()">Salvar nota</button><p id="noteStatus" class="muted"></p><div id="notesList"></div></div></section>
+<section id="plano" class="hidden"><div class="card"><h2>📅 Plano de leitura</h2><p>Comece com um pequeno trecho por dia. Marque os dias concluídos para acompanhar seu hábito.</p><div id="planDays"></div><p id="planProgress" class="muted"></p></div></section>
+<footer class="muted" style="padding:16px;text-align:center;font-size:12px">Palavra de Deus • Protótipo inicial offline<br>As funções locais guardam seus dados neste aparelho.</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+function get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
+function put(k,v){localStorage.setItem(k,JSON.stringify(v))}
+function show(id){document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));$(id).classList.remove('hidden');if(id==='favoritos')renderFav();if(id==='notas')renderNotes();if(id==='plano')renderPlan()}
+const sample=[{ref:'Salmos 23:1',text:'O Senhor é o meu pastor; nada me faltará.'},{ref:'João 3:16',text:'Porque Deus amou o mundo de tal maneira...'},{ref:'Provérbios 3:5',text:'Confia no Senhor de todo o teu coração.'},{ref:'Filipenses 4:13',text:'Posso todas as coisas naquele que me fortalece.'},{ref:'Salmos 119:105',text:'Lâmpada para os meus pés é tua palavra e luz para o meu caminho.'}];
+function saveFav(ref,text){let a=get('favs',[]);if(!a.some(x=>x.ref===ref))a.push({ref,text});put('favs',a);alert('Versículo salvo nos favoritos!')}
+function renderFav(){let a=get('favs',[]);$('favList').innerHTML=a.length?a.map((x,i)=>`<div class="item"><b>${x.ref}</b><p>${x.text}</p><button class="secondary" onclick="removeFav(${i})">Remover</button></div>`).join(''):'Nenhum favorito salvo ainda.'}
+function removeFav(i){let a=get('favs',[]);a.splice(i,1);put('favs',a);renderFav()}
+function readChapter(){let b=$('book').value,c=$('chapter').value;$('chapterText').innerHTML=`<h3>${b} ${c}</h3><p>O leitor está pronto para receber o texto bíblico completo da edição autorizada. Neste protótipo, o conteúdo integral ainda não está incluído.</p><button onclick="saveFav('${b} ${c}','Adicionar leitura completa quando a Bíblia licenciada for incluída.')">Salvar referência</button>`}
+function searchBible(){let q=$('query').value.toLowerCase();let a=sample.filter(x=>(x.ref+' '+x.text).toLowerCase().includes(q));$('results').innerHTML=a.length?a.map(x=>`<div class="item"><b>${x.ref}</b><p>${x.text}</p><button onclick="saveFav('${x.ref}','${x.text.replaceAll("'","\\'")}')">♡ Favoritar</button></div>`).join(''):'<p>Nenhum resultado nas passagens de exemplo. A busca completa depende de adicionar a Bíblia licenciada.</p>'}
+function saveNote(){let n=$('note').value.trim();if(!n)return;let a=get('notes',[]);a.unshift({text:n,date:new Date().toLocaleDateString('pt-BR')});put('notes',a);$('note').value='';$('noteStatus').textContent='Nota salva neste aparelho.';renderNotes()}
+function renderNotes(){let a=get('notes',[]);$('notesList').innerHTML=a.map((x,i)=>`<div class="item"><small>${x.date}</small><p>${x.text.replaceAll('<','&lt;')}</p><button class="secondary" onclick="deleteNote(${i})">Excluir</button></div>`).join('')}
+function deleteNote(i){let a=get('notes',[]);a.splice(i,1);put('notes',a);renderNotes()}
+function markRead(){let n=get('readCount',0)+1;put('readCount',n);$('progress').textContent='Capítulos marcados como lidos: '+n}
+function renderPlan(){let a=get('plan',[]);let days=['Dia 1 — Salmos 1','Dia 2 — Salmos 23','Dia 3 — Provérbios 3','Dia 4 — Mateus 5','Dia 5 — Mateus 6','Dia 6 — João 1','Dia 7 — Romanos 8'];$('planDays').innerHTML=days.map((d,i)=>`<div class="item"><label><input type="checkbox" ${a.includes(i)?'checked':''} onchange="toggleDay(${i},this.checked)"> ${d}</label></div>`).join('');$('planProgress').textContent=a.length+' de 7 dias concluídos'}
+function toggleDay(i,on){let a=get('plan',[]);a=on?[...new Set([...a,i])]:a.filter(x=>x!==i);put('plan',a);renderPlan()}
+function toggleTheme(){document.body.classList.toggle('light');put('light',document.body.classList.contains('light'))}
+function fontSize(d){let n=Math.max(14,Math.min(26,parseInt(get('fs',16))+d));put('fs',n);document.querySelectorAll('p').forEach(p=>p.style.fontSize=n+'px')}
+function shareText(t){if(navigator.share)navigator.share({text:t});else alert(t)}
+if(get('light',false))document.body.classList.add('light');
+$('progress').textContent='Capítulos marcados como lidos: '+get('readCount',0);
+</script></body></html>

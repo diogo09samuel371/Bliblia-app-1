@@ -1,0 +1,18 @@
+PALAVRA DE DEUS — projeto inicial Android
+
+IMPORTANTE:
+Este ZIP é o código-fonte de um protótipo Android, não um APK já compilado.
+A interface e funções locais de favoritos, notas, plano de leitura e tema estão demonstradas.
+A Bíblia completa em português NÃO está incluída ainda. Antes de distribuir o app, escolha uma tradução cuja licença permita incorporar e redistribuir o texto. Não copie uma tradução moderna sem autorização.
+
+COMO GERAR O APK:
+1. Este projeto foi preparado para abrir no Android Studio em um computador.
+2. Abra a pasta PalavraDeDeus no Android Studio.
+3. Aguarde a sincronização do Gradle.
+4. Use Build > Build APK(s).
+5. O APK de teste normalmente aparece em app/build/outputs/apk/debug/app-debug.apk.
+
+Pelo celular:
+O Android Studio oficial não funciona diretamente no Android. Para compilar só pelo celular, será necessário usar um serviço de build Android compatível ou um ambiente remoto; esta etapa ainda não foi executada neste pacote.
+
+O app não pede permissões de internet e mantém notas/favoritos localmente no aparelho.
